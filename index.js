@@ -1,12 +1,16 @@
 const express = require("express");
+const app = express();
 const connectDB = require("./db/connect");
 const characters = require("./routes/characters");
-const app = express();
+require('dotenv').config();
+const notFound = require('./middleware/not-found');
+const errorHandlerMiddleware = require('./middleware/error-handler');
 
+app.use("/characters", characters);
 
-app.use("./characters", characters);
-
-const port = 5000;
+app.use(notFound);
+app.use(errorHandlerMiddleware);
+const port = 3000;
 
 const start = async () => {
     try {

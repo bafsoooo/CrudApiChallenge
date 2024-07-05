@@ -12,12 +12,6 @@ const connectDB = (url) => {
 }
 
 
-// const connect = () => {
-//     return mongoose.connect(connectString, {
-//         useNewUrlParser: true,
-//         useUnifiedTopology: true,
-//         useCreateIndex: true
-//     });
-// };
+
 
 module.exports = connectDB;

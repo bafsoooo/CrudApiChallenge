@@ -5,7 +5,7 @@ const Character = require('../db/models/character')
 
 const getAllCharecters = asyncWrapper(async (req, res) => {
   const characters = await Character.find({})
-  res.status(200).json({ tasks })
+  res.status(200).json({ characters })
 })
 
 const createCharecter = asyncWrapper(async (req, res) => {
@@ -39,7 +39,7 @@ const updateCharecter = asyncWrapper(async (req, res, next) => {
   })
 
   if (!character) {
-    return next(createCustomError(`No task with id : ${nameChar}`, 404))
+    return next(createCustomError(`No character with name : ${nameChar}`, 404))
   }
 
   res.status(200).json({ task })
