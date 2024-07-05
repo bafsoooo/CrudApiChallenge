@@ -10,18 +10,18 @@ const {
 } = require('../controllers/characters')
 
 // Get all characters
-router.get('/characters', getAllCharecters);
+router.get('/', getAllCharecters);
 
 // Create a new character
-router.post('/characters', createCharecter);
+router.post('/', createCharecter);
 
 // Get a single character by name
-router.get('/characters/:name', getCharecter);
+router.get('/:name', getCharecter);
 
 // Delete a character by name
-router.delete('/characters/:name', deleteCharecter);
+router.delete('/:name', deleteCharecter);
 
 // Update a character by name (assuming the rest of the updateCharacter function is implemented)
-router.patch('/characters/:name', updateCharecter);
+router.patch('/:name', updateCharecter);
 
 module.exports = router

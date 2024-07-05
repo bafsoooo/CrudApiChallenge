@@ -1,36 +1,43 @@
-const asyncWrapper = require('../middleware/async')
+const express = require('express');
+const app = express();
 const { createCustomError } = require('../errors/custom-error')
 const Character = require('../db/models/character')
 
 
-const getAllCharecters = asyncWrapper(async (req, res) => {
-  const characters = await Character.find({})
-  res.status(200).json({ characters })
-})
+const getAllCharecters = async (req, res) => {
+    const characters = await Character.find({});
+    res.status(200).json({ characters });
+}
 
-const createCharecter = asyncWrapper(async (req, res) => {
-  const character = await Character.create(req.body)
-  res.status(201).json({ character })
-})
-
-const getCharecter = asyncWrapper(async (req, res, next) => {
-  const { name: nameChar } = req.params
-  const character = await Character.findOne({ name: nameChar })
-  if (!character) {
-    return next(createCustomError(`No character with name : ${nameChar}`, 404))
+const createCharecter = async (req, res) => {
+    const { name, kind } = req.body;
+  
+    if (!name || !kind) {
+      return res.status(400).json({ msg: 'Please provide name and kind' });
+    }
+  
+    await Character.create({ name, kind });
+    res.status(201).json({ msg: 'Character created successfully' });
   }
 
-  res.status(200).json({ character })
-})
-const deleteCharecter = asyncWrapper(async (req, res, next) => {
+const getCharecter =  async (req, res, next) => {
+    const { name } = req.params;
+    const character = await Character.findOne({ name });
+    if (!character) {
+      return next(createCustomError(`No character with name: ${name}`, 404));
+    }
+  
+    res.status(200).json({ character });
+  }
+const deleteCharecter = async (req, res, next) => {
   const { name: nameChar } = req.params
   const character = await Character.findOneAndDelete({ name: nameChar })
   if (!character) {
     return next(createCustomError(`No character with name : ${nameChar}`, 404))
   }
   res.status(200).json({ task })
-})
-const updateCharecter = asyncWrapper(async (req, res, next) => {
+}
+const updateCharecter = async (req, res, next) => {
   const { name: nameChar } = req.params
 
   const character = await Character.findOneAndUpdate({ name: nameChar }, req.body, {
@@ -42,8 +49,8 @@ const updateCharecter = asyncWrapper(async (req, res, next) => {
     return next(createCustomError(`No character with name : ${nameChar}`, 404))
   }
 
-  res.status(200).json({ task })
-})
+  res.status(200).json({nameChar})
+}
 
 module.exports = {
     getAllCharecters,
