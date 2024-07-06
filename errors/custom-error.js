@@ -1,3 +1,5 @@
+//this file is for creating custom errors
+
 class CustomAPIError extends Error {
     constructor(message, statusCode) {
       super(message)

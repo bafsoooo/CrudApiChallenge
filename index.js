@@ -6,10 +6,15 @@ require('dotenv').config();
 const notFound = require('./middleware/not-found');
 const errorHandlerMiddleware = require('./middleware/error-handler');
 
+app.use(express.json());
+
+//routes
 app.use("/characters", characters);
 
+//middleware
 app.use(notFound);
 app.use(errorHandlerMiddleware);
+
 const port = 3000;
 
 const start = async () => {

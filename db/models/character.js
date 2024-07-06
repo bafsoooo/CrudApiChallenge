@@ -1,15 +1,14 @@
 const mongoose = require('mongoose');
 
 const characterSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true, // This makes the `name` field required
-  },
-  kind: {
-    type: String,
-    required: true, // This makes the `kind` field required
-  },
-  // other fields...
+    name: {
+        required: true, 
+        type: String,
+    },
+    kind: {
+        required: true, 
+        type: String,
+    },
 });
 
 const Character = mongoose.model('Character', characterSchema);

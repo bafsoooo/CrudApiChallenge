@@ -1,3 +1,5 @@
+//this file is for handling internal errors
+
 const { CustomAPIError } = require('../errors/custom-error')
 const errorHandlerMiddleware = (err, req, res, next) => {
   if (err instanceof CustomAPIError) {
